@@ -8,6 +8,19 @@ import javax.swing.*;
 /**
  * A class for testing the tree class.
  * 
+ * A RedBlackTree is in order when a) the root is black, b) a red node never has
+ * a red parent, c) there are exactly as many black nodes on each branch
+ * (counting from null).
+ * 
+ * The point of those rules are that if the tree fulfills these requirements it
+ * will then have log(n) as the maximal depth, with n as the total number of
+ * nodes.
+ * 
+ * A RedBlackTree is also a binary search tree, which means that each node have
+ * up to two children and that it holds for any node x that the (eventual) left
+ * child is smaller than x and the (eventual) right child is larger. The various
+ * operations below all conserve that property though.
+ * 
  * @author Markus
  *
  */
@@ -40,31 +53,44 @@ public class TestingManualProgram {
 				command = sc.next();
 				// command = JOptionPane.showInputDialog("Please input a
 				// command");
+
+				// Prompts the user for a number and then adds that number to
+				// the tree.
 				if (command.equalsIgnoreCase("add")) {
 					add(tree);
 				}
+				// Prompts for three nodes and then changes the tree according
+				// to
+				// the zigzig pattern
 				if (command.equalsIgnoreCase("zigzig")) {
 					zigzig(tree);
 				}
+				// Prompts for three nodes and then changes the tree according
+				// to
+				// the zigzig pattern
 				if (command.equalsIgnoreCase("zigzag")) {
 					zigzag(tree);
 				}
+				// Prompts for three nodes and then changes the color of these
+				// three
 				if (command.equalsIgnoreCase("recolor")) {
 					recolor(tree);
 				}
+				// Changes the color of the root
 				if (command.equalsIgnoreCase("recolor_root")) {
 					recolor_root(tree);
 				}
+				// Goes to the next round
 				if (command.equalsIgnoreCase("pass")) {
 					break;
 				}
 				System.out.println("The tree currently looks like: \n");
 				Auxiliary.printLinkedTree(tree);
 			}
-			if(TestRBTreeOrder.isOrdered(tree)){
+			if (TestRBTreeOrder.isOrdered(tree)) {
 				score++;
 				System.out.println("Congratulations! The tree is in order. Your score is: " + score + "\n");
-			}else{
+			} else {
 				System.out.println("The tree is not in order. Try again. \n\n");
 			}
 		}
