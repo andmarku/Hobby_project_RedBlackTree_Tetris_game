@@ -19,25 +19,27 @@ public class TestingManualProgram {
 	public static void main(String[] args) {
 		RBTreeManual tree = new RBTreeManual();
 		Stack<Integer> stack = new Stack<Integer>();
-		stack.push(4);
-		stack.push(5);
 		stack.push(6);
-		stack.push(7);
+		stack.push(5);
+		stack.push(15);
+		stack.push(4);
 		stack.push(8);
 		stack.push(9);
-		stack.push(10);
 		stack.push(11);
+		stack.push(10);
 		stack.push(12);
 		Scanner sc = new Scanner(System.in);
 		String command;
+		int score = 0;
 
-		while(!stack.isEmpty()){
+		while (!stack.isEmpty()) {
 			tree.addNode(stack.pop());
 			System.out.println("Next round! The tree currently looks like: \n");
 			Auxiliary.printLinkedTree(tree);
 			while (sc.hasNext()) {
 				command = sc.next();
-				// command = JOptionPane.showInputDialog("Please input a command");
+				// command = JOptionPane.showInputDialog("Please input a
+				// command");
 				if (command.equalsIgnoreCase("add")) {
 					add(tree);
 				}
@@ -53,8 +55,17 @@ public class TestingManualProgram {
 				if (command.equalsIgnoreCase("recolor_root")) {
 					recolor_root(tree);
 				}
-				System.out.println("The tree is ordered: " + TestRBTreeOrder.isOrdered(tree) + "\n\n");
-				break;
+				if (command.equalsIgnoreCase("pass")) {
+					break;
+				}
+				System.out.println("The tree currently looks like: \n");
+				Auxiliary.printLinkedTree(tree);
+			}
+			if(TestRBTreeOrder.isOrdered(tree)){
+				score++;
+				System.out.println("Congratulations! The tree is in order. Your score is: " + score + "\n");
+			}else{
+				System.out.println("The tree is not in order. Try again. \n\n");
 			}
 		}
 		sc.close();
@@ -86,6 +97,7 @@ public class TestingManualProgram {
 					+JOptionPane.ERROR_MESSAGE);
 			return;
 		}
+		tree.zigzig(x, p, gp);
 	}
 
 	private static void zigzag(RBTreeManual tree) {
