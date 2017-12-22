@@ -1,5 +1,6 @@
 package redBlackTree;
 
 public interface IMovable {
-	public void makeMove(String str);
+	public void makeMove(String command);
+	public void makeMove(String command, int a, int b, int c);
 }

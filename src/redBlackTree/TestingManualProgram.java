@@ -1,5 +1,4 @@
 package redBlackTree;
-
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.*;
@@ -59,14 +58,12 @@ public class TestingManualProgram {
 					add(tree);
 				}
 				// Prompts for three nodes and then changes the tree according
-				// to
-				// the zigzig pattern
+				// to the zigzig pattern
 				if (command.equalsIgnoreCase("zigzig")) {
 					zigzig(tree);
 				}
 				// Prompts for three nodes and then changes the tree according
-				// to
-				// the zigzig pattern
+				// to the zigzig pattern
 				if (command.equalsIgnoreCase("zigzag")) {
 					zigzag(tree);
 				}

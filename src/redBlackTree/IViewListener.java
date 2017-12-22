@@ -1,5 +1,7 @@
 package redBlackTree;
 
+import java.util.List;
+
 public interface IViewListener {
-	public void newRound();
+	public void update(int score, boolean isInOrder, List<RBTNode> nodes);
 }
