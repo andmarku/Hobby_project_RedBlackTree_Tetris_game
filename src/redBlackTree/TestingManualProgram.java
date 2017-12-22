@@ -2,7 +2,6 @@ package redBlackTree;
 
 import java.util.Scanner;
 import java.util.Stack;
-
 import javax.swing.*;
 
 /**
