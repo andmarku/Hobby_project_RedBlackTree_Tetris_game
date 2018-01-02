@@ -17,57 +17,65 @@ public class Auxiliary {
 	 * @param tree
 	 *            the tree to print.
 	 */
-//	public static List<RBTNode> convertToArray(RBTree tree) {
-//		List<RBTNode> ls = new ArrayList<>();
-//		RBTNode root = tree.getRoot();
-//		if (root == null)
-//			return ls;
-//		convertToArray(ls, root, 0, 0);
-//		return ls;
-//	}
-//
-//	private static int convertToArray(List<RBTNode> ls, RBTNode node, 
-//			int layer, int indent) {
-//		// Do nothing if at a leaf
-//		if (node == null)
-//			//return;
-//		
-//		// Fix the node and add it to the list
-//		node.layer = layer;
-//		node.position = indent;
-//		ls.add(node);
-//		
-//		// Add one to the layer of the children
-//		int nextLayer = layer + 1;
-//		
-//		// Right child
-//		convertToArray(node.getRightChild(), indent + "\t");
-//		System.out.println(indent + node.getValue() + " (" + node.getColor().toString() + ")");
-//		// Left child
-//		convertToArray(node.getLeftChild(), indent + "\t");
-//	}
-	
-	public static List<RBTNode> convertToArray(RBTree tree){
-		List<RBTNode> ls = new ArrayList<>(100);
+	// public static List<RBTNode> convertToArray(RBTree tree) {
+	// List<RBTNode> ls = new ArrayList<>();
+	// RBTNode root = tree.getRoot();
+	// if (root == null)
+	// return ls;
+	// convertToArray(ls, root, 0, 0);
+	// return ls;
+	// }
+	//
+	// private static int convertToArray(List<RBTNode> ls, RBTNode node,
+	// int layer, int indent) {
+	// // Do nothing if at a leaf
+	// if (node == null)
+	// //return;
+	//
+	// // Fix the node and add it to the list
+	// node.layer = layer;
+	// node.position = indent;
+	// ls.add(node);
+	//
+	// // Add one to the layer of the children
+	// int nextLayer = layer + 1;
+	//
+	// // Right child
+	// convertToArray(node.getRightChild(), indent + "\t");
+	// System.out.println(indent + node.getValue() + " (" +
+	// node.getColor().toString() + ")");
+	// // Left child
+	// convertToArray(node.getLeftChild(), indent + "\t");
+	// }
+
+	public static List<RBTNode> convertToArray(RBTree tree) {
+		List<RBTNode> ls = new ArrayList<>();
 		if (tree.getRoot() == null)
 			return ls;
+
+		// Fill the list with lots of null nodes.
+
+		for (int j = 0; j < 100; j++) {
+			ls.add(null);
+		}
+
 		convertToArray(tree.getRoot(), 0, ls);
-		
+
 		// Fit the size
 		List<RBTNode> finalList = new ArrayList<>();
 		int i = 0;
 		boolean hasNextNode = false;
-		for(RBTNode node : ls){
-			if( node != null){
+		for (RBTNode node : ls) {
+			if (node != null) {
 				finalList.add(node);
-			}else{
-				for( int j = i + 1; j < ls.size(); j++){
-					if( ls.get(j) != null){
+			} else {
+				for (int j = i + 1; j < ls.size(); j++) {
+					if (ls.get(j) != null) {
 						hasNextNode = true;
 						break;
 					}
 				}
-				if( hasNextNode)
+				if (hasNextNode)
 					finalList.add(node);
 				hasNextNode = false;
 			}
@@ -75,23 +83,17 @@ public class Auxiliary {
 		}
 		return finalList;
 	}
-	private static void convertToArray(RBTNode node, int posOfNode, List<RBTNode> ls){
+
+	private static void convertToArray(RBTNode node, int posOfNode, List<RBTNode> ls) {
 		if (node == null)
 			return;
-		// If node equals root, add it at the first position. Then call the method with 
-		// index 1 and 2. (Needs the separate cases since the multiplicative formula 
-		// can not be used with zero.)
-		if( posOfNode == 0){
-			ls.add(0, node);
-			convertToArray(node.getLeftChild(), 1, ls);
-			convertToArray(node.getRightChild(), 2, ls);
-			return;
-		}
 		ls.add(posOfNode, node);
-		convertToArray(node.getLeftChild(), posOfNode*2, ls);
-		convertToArray(node.getRightChild(), posOfNode*2 + 1, ls);
+		// Add one to index before multiplication, then subtract to get correct
+		// index
+		convertToArray(node.getLeftChild(), (posOfNode + 1) * 2 - 1, ls);
+		convertToArray(node.getRightChild(), (posOfNode + 1) * 2, ls);
 	}
-	
+
 	public static RBTNode RBTNodeFactory(int value) {
 		return new RBTNode(value, null);
 	}
@@ -146,18 +148,19 @@ public class Auxiliary {
 		// Remove one in order the shift first element to position zero.
 		return (index + 1) * 2;
 	}
-	public static List<RBTNode> convertTreeToList(RBTree tree){
+
+	public static List<RBTNode> convertTreeToList(RBTree tree) {
 		List<RBTNode> nodes = new ArrayList<RBTNode>();
 		RBTNode curr = tree.getRoot();
-		for( int i = 0; i < 2*tree.size(); i++){
+		for (int i = 0; i < 2 * tree.size(); i++) {
 			nodes.add(curr);
-			
+
 		}
-		
+
 		return nodes;
 	}
-	
-	private static void addToList(List<RBTNode> nodes, RBTNode curr){
+
+	private static void addToList(List<RBTNode> nodes, RBTNode curr) {
 		nodes.add(curr);
 	}
 }

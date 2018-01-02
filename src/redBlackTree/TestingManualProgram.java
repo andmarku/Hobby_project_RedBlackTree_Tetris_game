@@ -1,4 +1,6 @@
 package redBlackTree;
+
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 import javax.swing.*;
@@ -52,6 +54,20 @@ public class TestingManualProgram {
 				// command = JOptionPane.showInputDialog("Please input a
 				// command");
 
+				// Prints an array which follows the 'multiplicative formula'
+				if (command.equalsIgnoreCase("array")) {
+					List<RBTNode> ls = Auxiliary.convertToArray(tree);
+
+					System.out.println("\nThe array looks like: ");
+					for (RBTNode node : ls) {
+						if (node == null) {
+							System.out.print(" nullNode ");
+						} else {
+							System.out.print(" " + node.getValue() + " ");
+						}
+					}
+					System.out.println("\n");
+				}
 				// Prompts the user for a number and then adds that number to
 				// the tree.
 				if (command.equalsIgnoreCase("add")) {

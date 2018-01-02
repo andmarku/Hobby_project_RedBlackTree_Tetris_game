@@ -13,14 +13,11 @@ public class RBTNode {
 			return t == BLACK ? RED : BLACK;
 		}
 	}
-	public int layer;
-	public int position;
 	private Col color;
 	private int value;
 	private RBTNode parent;
 	private RBTNode leftChild;
 	private RBTNode rightChild;
-
 	public RBTNode(int value) {
 		this(value, null);
 	}
