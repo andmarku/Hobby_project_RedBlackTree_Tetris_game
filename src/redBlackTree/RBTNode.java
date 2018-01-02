@@ -13,7 +13,8 @@ public class RBTNode {
 			return t == BLACK ? RED : BLACK;
 		}
 	}
-
+	public int layer;
+	public int position;
 	private Col color;
 	private int value;
 	private RBTNode parent;

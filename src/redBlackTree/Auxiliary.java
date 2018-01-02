@@ -10,6 +10,88 @@ import java.util.List;
  *
  */
 public class Auxiliary {
+	/**
+	 * A method which prints a linked tree using a folder structure with the
+	 * root most to the left.
+	 * 
+	 * @param tree
+	 *            the tree to print.
+	 */
+//	public static List<RBTNode> convertToArray(RBTree tree) {
+//		List<RBTNode> ls = new ArrayList<>();
+//		RBTNode root = tree.getRoot();
+//		if (root == null)
+//			return ls;
+//		convertToArray(ls, root, 0, 0);
+//		return ls;
+//	}
+//
+//	private static int convertToArray(List<RBTNode> ls, RBTNode node, 
+//			int layer, int indent) {
+//		// Do nothing if at a leaf
+//		if (node == null)
+//			//return;
+//		
+//		// Fix the node and add it to the list
+//		node.layer = layer;
+//		node.position = indent;
+//		ls.add(node);
+//		
+//		// Add one to the layer of the children
+//		int nextLayer = layer + 1;
+//		
+//		// Right child
+//		convertToArray(node.getRightChild(), indent + "\t");
+//		System.out.println(indent + node.getValue() + " (" + node.getColor().toString() + ")");
+//		// Left child
+//		convertToArray(node.getLeftChild(), indent + "\t");
+//	}
+	
+	public static List<RBTNode> convertToArray(RBTree tree){
+		List<RBTNode> ls = new ArrayList<>(100);
+		if (tree.getRoot() == null)
+			return ls;
+		convertToArray(tree.getRoot(), 0, ls);
+		
+		// Fit the size
+		List<RBTNode> finalList = new ArrayList<>();
+		int i = 0;
+		boolean hasNextNode = false;
+		for(RBTNode node : ls){
+			if( node != null){
+				finalList.add(node);
+			}else{
+				for( int j = i + 1; j < ls.size(); j++){
+					if( ls.get(j) != null){
+						hasNextNode = true;
+						break;
+					}
+				}
+				if( hasNextNode)
+					finalList.add(node);
+				hasNextNode = false;
+			}
+			i++;
+		}
+		return finalList;
+	}
+	private static void convertToArray(RBTNode node, int posOfNode, List<RBTNode> ls){
+		if (node == null)
+			return;
+		// If node equals root, add it at the first position. Then call the method with 
+		// index 1 and 2. (Needs the separate cases since the multiplicative formula 
+		// can not be used with zero.)
+		if( posOfNode == 0){
+			ls.add(0, node);
+			convertToArray(node.getLeftChild(), 1, ls);
+			convertToArray(node.getRightChild(), 2, ls);
+			return;
+		}
+		ls.add(posOfNode, node);
+		convertToArray(node.getLeftChild(), posOfNode*2, ls);
+		convertToArray(node.getRightChild(), posOfNode*2 + 1, ls);
+	}
+	
 	public static RBTNode RBTNodeFactory(int value) {
 		return new RBTNode(value, null);
 	}
@@ -36,31 +118,6 @@ public class Auxiliary {
 		System.out.println(indent + node.getValue() + " (" + node.getColor().toString() + ")");
 		printLinkedTree(node.getLeftChild(), indent + "\t");
 	}
-
-	// /**
-	// * A method which prints the tree using a folder structure with the root
-	// * most to the left.
-	// *
-	// * @param tree
-	// * the tree to print.
-	// */
-	// public static void printArrayTree(RBTree tree) {
-	// if (tree.size() == 0)
-	// System.out.println("Empty tree");
-	// printArrayTree(tree, 0, "");
-	// }
-	//
-	// private static void printArrayTree(RBTree tree, int index, String indent)
-	// {
-	// // Can be changed to print a string containing '-' at each leaf.
-	// if (tree.size() <= index) {
-	// // System.out.println(indent + "-");
-	// return;
-	// }
-	// System.out.println(indent + tree.getNode(index).getColor().toString());
-	// printArrayTree(tree, Auxiliary.getLeftChild(index), indent + "\t");
-	// printArrayTree(tree, Auxiliary.getRightChild(index), indent + "\t");
-	// }
 
 	/**
 	 * Computes the index of the left child of a parent node.
