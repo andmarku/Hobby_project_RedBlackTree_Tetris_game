@@ -1,6 +1,6 @@
 package redBlackTree;
 
-public interface IModel {
+public interface IModelable {
 	public void subscribe(IViewListener view);
 	public void unSubscribe(IViewListener view);
 }

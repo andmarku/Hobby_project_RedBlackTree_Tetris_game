@@ -1,4 +1,4 @@
-package redBlackTree;
+package StandAloneTree;
 
 import java.util.ArrayList;
 import java.util.List;

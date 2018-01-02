@@ -1,4 +1,4 @@
-package redBlackTree;
+package StandAloneTree;
 
 import java.util.Scanner;
 

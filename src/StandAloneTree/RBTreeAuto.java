@@ -1,4 +1,4 @@
-package redBlackTree;
+package StandAloneTree;
 
 /**
  * A class which implements a RedBlackTree data structure, which is a binary
