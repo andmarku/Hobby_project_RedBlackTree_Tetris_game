@@ -17,37 +17,6 @@ public class Auxiliary {
 	 * @param tree
 	 *            the tree to print.
 	 */
-	// public static List<RBTNode> convertToArray(RBTree tree) {
-	// List<RBTNode> ls = new ArrayList<>();
-	// RBTNode root = tree.getRoot();
-	// if (root == null)
-	// return ls;
-	// convertToArray(ls, root, 0, 0);
-	// return ls;
-	// }
-	//
-	// private static int convertToArray(List<RBTNode> ls, RBTNode node,
-	// int layer, int indent) {
-	// // Do nothing if at a leaf
-	// if (node == null)
-	// //return;
-	//
-	// // Fix the node and add it to the list
-	// node.layer = layer;
-	// node.position = indent;
-	// ls.add(node);
-	//
-	// // Add one to the layer of the children
-	// int nextLayer = layer + 1;
-	//
-	// // Right child
-	// convertToArray(node.getRightChild(), indent + "\t");
-	// System.out.println(indent + node.getValue() + " (" +
-	// node.getColor().toString() + ")");
-	// // Left child
-	// convertToArray(node.getLeftChild(), indent + "\t");
-	// }
-
 	public static List<RBTNode> convertToArray(RBTree tree) {
 		List<RBTNode> ls = new ArrayList<>();
 		if (tree.getRoot() == null)
