@@ -1,10 +1,7 @@
 package redBlackTree;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-import javax.swing.JOptionPane;
 
 public class Game implements IGame {
 	// Game related
