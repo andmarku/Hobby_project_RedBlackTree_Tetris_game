@@ -12,10 +12,17 @@ import java.util.List;
 public interface IGame {
 
 	/**
-	 * Resets the tree and starts a new game.
+	 * Resets the tree and starts a new game at level one.
 	 */
 	void newGame();
 
+	/**
+	 * Resets the tree and starts a new game at the specified level.
+	 * @param level the level to start the next game at.
+	 */
+	public void newGame(int level);
+	
+	
 	/**
 	 * Add a node to the tree. The node will be added according to a schema
 	 * determined by the level.

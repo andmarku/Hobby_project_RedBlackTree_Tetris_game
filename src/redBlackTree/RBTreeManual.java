@@ -1,5 +1,7 @@
 package redBlackTree;
 
+import java.util.List;
+
 /**
  * A class which implements a RedBlackTree data structure, which is a binary
  * tree that has a maximum difference with a factor of two between two paths.
@@ -15,7 +17,7 @@ package redBlackTree;
  * @author Markus
  *
  */
-public class RBTreeManual implements RBTree {
+public class RBTreeManual implements IRBTree {
 	private RBTNode root;
 	private int size = 0;
 
@@ -184,12 +186,6 @@ public class RBTreeManual implements RBTree {
 		x.changeCol();
 	}
 
-	@Override
-	public int size() {
-		return size;
-	}
-
-	@Override
 	public RBTNode getRoot() {
 		return root;
 	}
@@ -241,6 +237,42 @@ public class RBTreeManual implements RBTree {
 			return x.hasLeftChild() ? findMatch(x.getLeftChild(), value) : x;
 		else
 			return x.hasRightChild() ? findMatch(x.getRightChild(), value) : x;
+	}
+
+	@Override
+	public boolean isBalanced() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<Integer> getTree() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void recolor(int indexOfNode) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void zig(int indexOfChild, int indexOfPar) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void zigzag(int indexOfChild, int indexOfGrandParent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

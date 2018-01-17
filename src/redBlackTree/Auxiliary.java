@@ -17,7 +17,7 @@ public class Auxiliary {
 	 * @param tree
 	 *            the tree to print.
 	 */
-	public static List<RBTNode> convertToArray(RBTree tree) {
+	public static List<RBTNode> convertToArray(RBTreeManual tree) {
 		List<RBTNode> ls = new ArrayList<>();
 		if (tree.getRoot() == null)
 			return ls;
@@ -74,7 +74,7 @@ public class Auxiliary {
 	 * @param tree
 	 *            the tree to print.
 	 */
-	public static void printLinkedTree(RBTree tree) {
+	public static void printLinkedTree(RBTreeManual tree) {
 		RBTNode root = tree.getRoot();
 		if (root == null)
 			System.out.println("Empty tree");
@@ -118,10 +118,10 @@ public class Auxiliary {
 		return (index + 1) * 2;
 	}
 
-	public static List<RBTNode> convertTreeToList(RBTree tree) {
+	public static List<RBTNode> convertTreeToList(RBTreeManual tree) {
 		List<RBTNode> nodes = new ArrayList<RBTNode>();
 		RBTNode curr = tree.getRoot();
-		for (int i = 0; i < 2 * tree.size(); i++) {
+		for (int i = 0; i < 2 * tree.getSize(); i++) {
 			nodes.add(curr);
 
 		}
