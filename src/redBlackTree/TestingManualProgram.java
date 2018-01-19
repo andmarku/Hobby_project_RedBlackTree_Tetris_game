@@ -56,7 +56,7 @@ public class TestingManualProgram {
 
 				// Prints an array which follows the 'multiplicative formula'
 				if (command.equalsIgnoreCase("array")) {
-					List<RBTNode> ls = Auxiliary.convertToArray(tree);
+					List<RBTNode> ls = ToArray.convertToList(tree);
 
 					System.out.println("\nThe array looks like: ");
 					for (RBTNode node : ls) {
@@ -90,7 +90,7 @@ public class TestingManualProgram {
 				}
 				// Changes the color of the root
 				if (command.equalsIgnoreCase("recolor_root")) {
-					recolor_root(tree);
+//					recolor_root(tree);
 				}
 				// Goes to the next round
 				if (command.equalsIgnoreCase("pass")) {
@@ -99,7 +99,7 @@ public class TestingManualProgram {
 				System.out.println("The tree currently looks like: \n");
 				Auxiliary.printLinkedTree(tree);
 			}
-			if (TestRBTreeOrder.isOrdered(tree)) {
+			if (IsBalanced.isOrdered(tree)) {
 				score++;
 				System.out.println("Congratulations! The tree is in order. Your score is: " + score + "\n");
 			} else {
@@ -159,26 +159,20 @@ public class TestingManualProgram {
 	}
 
 	private static void recolor(RBTreeManual tree) {
-		try {
-			valOne = Integer.parseInt(JOptionPane.showInputDialog("Please input the value of the left child"));
-			valTwo = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the right child"));
-			valThree = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the parent"));
-		} catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null, "Something was not an integer", "OBS!", +JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		RBTNode leftChild = tree.find(valOne);
-		RBTNode rightChild = tree.find(valTwo);
-		RBTNode x = tree.find(valThree);
-		if (x == null || leftChild == null || rightChild == null) {
-			JOptionPane.showMessageDialog(null, "At least one of the  three nodes could not be found", "OBS!",
-					+JOptionPane.ERROR_MESSAGE);
-			return;
-		}
-		tree.recolorTriangle(x, leftChild, rightChild);
+//		try {
+//			int val = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the node"));
+//		} catch (NumberFormatException e) {
+//			JOptionPane.showMessageDialog(null, "Something was not an integer", "OBS!", +JOptionPane.ERROR_MESSAGE);
+//			return;
+//		}
+//
+//		RBTNode node = tree.find(val);
+//		if (node == null) {
+//			JOptionPane.showMessageDialog(null, " The node could not be found", "OBS!",
+//					+JOptionPane.ERROR_MESSAGE);
+//			return;
+//		}
+//		tree.recolor(node);
 	}
 
-	private static void recolor_root(RBTreeManual tree) {
-		tree.recolorRoot();
-	}
 }

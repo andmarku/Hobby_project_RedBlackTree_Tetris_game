@@ -1,4 +1,4 @@
-package StandAloneTree;
+package redBlackTree;
 
 /**
  * Class for testing the invariants of RedBlackTrees.
@@ -6,7 +6,7 @@ package StandAloneTree;
  * @author Markus
  *
  */
-public class TestRBTreeOrder {
+public class IsBalanced {
 	/**
 	 * Method that checks whether the attached RedBlackTree is well ordered.
 	 * 
@@ -14,14 +14,14 @@ public class TestRBTreeOrder {
 	 *            the RedBlackTree to check.
 	 * @return true if the tree is in order, otherwise false.
 	 */
-	public static boolean isOrdered(RBTree tree) {
+	public static boolean isOrdered(RBTreeManual tree) {
 		boolean redKidsOK = redKidsOK(tree);
 		boolean blackRootOK = blackRootOK(tree);
 		boolean numBlackNodesOK = numBlackNodesOK(tree);
 		return redKidsOK && blackRootOK && numBlackNodesOK;
 	}
 
-	private static boolean numBlackNodesOK(RBTree tree) {
+	private static boolean numBlackNodesOK(RBTreeManual tree) {
 		// (The method called checks for null.)
 		return numBlackNodesOK(tree.getRoot()) == -1 ? false : true;
 	}
@@ -52,14 +52,14 @@ public class TestRBTreeOrder {
 		return numToNull;
 	}
 
-	private static boolean blackRootOK(RBTree tree) {
-		if (tree.size() <= 0)
+	private static boolean blackRootOK(RBTreeManual tree) {
+		if (tree.getSize() <= 0)
 			return true;
 		RBTNode root = tree.getRoot();
 		return (root.getColor() == RBTNode.Col.BLACK) ? true : false;
 	}
 
-	private static boolean redKidsOK(RBTree tree) {
+	private static boolean redKidsOK(RBTreeManual tree) {
 		RBTNode root = tree.getRoot();
 		if (root == null)
 			return true;

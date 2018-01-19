@@ -1,8 +1,5 @@
 package redBlackTree;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Class that provides some auxiliary methods to trees implemented in an arrays.
  * 
@@ -17,52 +14,6 @@ public class Auxiliary {
 	 * @param tree
 	 *            the tree to print.
 	 */
-	public static List<RBTNode> convertToArray(RBTreeManual tree) {
-		List<RBTNode> ls = new ArrayList<>();
-		if (tree.getRoot() == null)
-			return ls;
-
-		// Fill the list with lots of null nodes.
-
-		for (int j = 0; j < 100; j++) {
-			ls.add(null);
-		}
-
-		convertToArray(tree.getRoot(), 0, ls);
-
-		// Fit the size
-		List<RBTNode> finalList = new ArrayList<>();
-		int i = 0;
-		boolean hasNextNode = false;
-		for (RBTNode node : ls) {
-			if (node != null) {
-				finalList.add(node);
-			} else {
-				for (int j = i + 1; j < ls.size(); j++) {
-					if (ls.get(j) != null) {
-						hasNextNode = true;
-						break;
-					}
-				}
-				if (hasNextNode)
-					finalList.add(node);
-				hasNextNode = false;
-			}
-			i++;
-		}
-		return finalList;
-	}
-
-	private static void convertToArray(RBTNode node, int posOfNode, List<RBTNode> ls) {
-		if (node == null)
-			return;
-		ls.add(posOfNode, node);
-		// Add one to index before multiplication, then subtract to get correct
-		// index
-		convertToArray(node.getLeftChild(), (posOfNode + 1) * 2 - 1, ls);
-		convertToArray(node.getRightChild(), (posOfNode + 1) * 2, ls);
-	}
-
 	public static RBTNode RBTNodeFactory(int value) {
 		return new RBTNode(value, null);
 	}
@@ -118,18 +69,4 @@ public class Auxiliary {
 		return (index + 1) * 2;
 	}
 
-	public static List<RBTNode> convertTreeToList(RBTreeManual tree) {
-		List<RBTNode> nodes = new ArrayList<RBTNode>();
-		RBTNode curr = tree.getRoot();
-		for (int i = 0; i < 2 * tree.getSize(); i++) {
-			nodes.add(curr);
-
-		}
-
-		return nodes;
-	}
-
-	private static void addToList(List<RBTNode> nodes, RBTNode curr) {
-		nodes.add(curr);
-	}
 }

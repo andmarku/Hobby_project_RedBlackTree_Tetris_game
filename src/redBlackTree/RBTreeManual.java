@@ -1,5 +1,6 @@
 package redBlackTree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +20,14 @@ import java.util.List;
  */
 public class RBTreeManual implements IRBTree {
 	private RBTNode root;
-	private int size = 0;
+	private int size;
+	private List<RBTNode> treeAsArray;
 
+	public RBTreeManual(){
+		treeAsArray = new ArrayList<>();
+		size = 0;
+	}
+	
 	@Override
 	public void addNode(int value) {
 		if (root == null) {
@@ -174,18 +181,6 @@ public class RBTreeManual implements IRBTree {
 		return find(root, value);
 	}
 
-	public void recolorRoot() {
-		if (root == null)
-			return;
-		root.changeCol();
-	}
-
-	public void recolorTriangle(RBTNode x, RBTNode leftChild, RBTNode rightChild) {
-		rightChild.changeCol();
-		leftChild.changeCol();
-		x.changeCol();
-	}
-
 	public RBTNode getRoot() {
 		return root;
 	}
@@ -241,26 +236,23 @@ public class RBTreeManual implements IRBTree {
 
 	@Override
 	public boolean isBalanced() {
-		// TODO Auto-generated method stub
-		return false;
+		return IsBalanced.isOrdered(this);
 	}
 
 	@Override
 	public List<Integer> getTree() {
-		// TODO Auto-generated method stub
-		return null;
+		treeAsArray = ToArray.convertToList(this);
+		return ToArray.convertToIntegerList(treeAsArray);
 	}
 
 	@Override
 	public int getSize() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
 	}
 
 	@Override
 	public void recolor(int indexOfNode) {
-		// TODO Auto-generated method stub
-		
+		treeAsArray.get(indexOfNode).changeCol();
 	}
 
 	@Override
