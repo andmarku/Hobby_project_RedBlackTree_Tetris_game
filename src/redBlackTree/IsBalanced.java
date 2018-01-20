@@ -6,7 +6,7 @@ package redBlackTree;
  * @author Markus
  *
  */
-public class IsBalanced {
+class IsBalanced {
 	/**
 	 * Method that checks whether the attached RedBlackTree is well ordered.
 	 * 
@@ -14,14 +14,14 @@ public class IsBalanced {
 	 *            the RedBlackTree to check.
 	 * @return true if the tree is in order, otherwise false.
 	 */
-	public static boolean isOrdered(RBTreeManual tree) {
+	protected static boolean isOrdered(RBTree tree) {
 		boolean redKidsOK = redKidsOK(tree);
 		boolean blackRootOK = blackRootOK(tree);
 		boolean numBlackNodesOK = numBlackNodesOK(tree);
 		return redKidsOK && blackRootOK && numBlackNodesOK;
 	}
 
-	private static boolean numBlackNodesOK(RBTreeManual tree) {
+	private static boolean numBlackNodesOK(RBTree tree) {
 		// (The method called checks for null.)
 		return numBlackNodesOK(tree.getRoot()) == -1 ? false : true;
 	}
@@ -52,14 +52,14 @@ public class IsBalanced {
 		return numToNull;
 	}
 
-	private static boolean blackRootOK(RBTreeManual tree) {
+	private static boolean blackRootOK(RBTree tree) {
 		if (tree.getSize() <= 0)
 			return true;
 		RBTNode root = tree.getRoot();
 		return (root.getColor() == RBTNode.Col.BLACK) ? true : false;
 	}
 
-	private static boolean redKidsOK(RBTreeManual tree) {
+	private static boolean redKidsOK(RBTree tree) {
 		RBTNode root = tree.getRoot();
 		if (root == null)
 			return true;

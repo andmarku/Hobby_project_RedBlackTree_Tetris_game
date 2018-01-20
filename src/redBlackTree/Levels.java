@@ -2,8 +2,8 @@ package redBlackTree;
 
 import java.util.Stack;
 
-public class Levels {
-	public static Stack<Integer> getLevelList(int level){
+class Levels {
+	protected static Stack<Integer> getLevelList(int level){
 		switch (level){
 		case 2:
 			return getLevelTwo();

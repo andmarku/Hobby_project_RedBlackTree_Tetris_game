@@ -3,7 +3,7 @@ package redBlackTree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ToArray {
+class ToArray {
 
 	/**
 	 * A method which prints a linked tree using a folder structure with the
@@ -12,7 +12,7 @@ public class ToArray {
 	 * @param tree
 	 *            the tree to print.
 	 */
-	public static List<RBTNode> convertToList(RBTreeManual tree) {
+	protected static List<RBTNode> convertToList(RBTree tree) {
 		List<RBTNode> ls = new ArrayList<>();
 		if (tree.getRoot() == null)
 			return ls;
@@ -67,7 +67,7 @@ public class ToArray {
 	 * @return a list with integers denoting the color of the corresponding
 	 *         nodes, with -1 for null nodes
 	 */
-	public static List<Integer> convertToIntegerList(List<RBTNode> ls) {
+	protected static List<Integer> convertToIntegerList(List<RBTNode> ls) {
 		List<Integer> intLs = new ArrayList<>();
 		for( RBTNode node : ls){
 			if( node == null)

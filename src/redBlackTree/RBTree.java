@@ -18,20 +18,34 @@ import java.util.List;
  * @author Markus
  *
  */
-public class RBTreeManual implements IRBTree {
+class RBTree implements IRBTree {
 	private RBTNode root;
 	private int size;
 	private List<RBTNode> treeAsArray;
 
-	public RBTreeManual(){
+	protected RBTree(){
 		treeAsArray = new ArrayList<>();
 		size = 0;
+	}
+	
+	protected RBTNode getRoot() {
+		return root;
+	}
+	/**
+	 * A method which prints a linked tree using a folder structure with the
+	 * root most to the left.
+	 * 
+	 * @param tree
+	 *            the tree to print.
+	 */
+	private static RBTNode RBTNodeFactory(int value) {
+		return new RBTNode(value, null);
 	}
 	
 	@Override
 	public void addNode(int value) {
 		if (root == null) {
-			root = Auxiliary.RBTNodeFactory(value);
+			root = RBTNodeFactory(value);
 			root.changeCol();
 
 		} else {
@@ -43,7 +57,7 @@ public class RBTreeManual implements IRBTree {
 				return;
 
 			// Create a new node and add the (best) match as its parent
-			RBTNode x = Auxiliary.RBTNodeFactory(value);
+			RBTNode x = RBTNodeFactory(value);
 			x.setParent(match);
 
 			// If the closest match was too small, add the new node as its right
@@ -58,52 +72,64 @@ public class RBTreeManual implements IRBTree {
 		size = size + 1;
 	}
 
-	public void zigzig(RBTNode x, RBTNode p, RBTNode gp) {
-		boolean isLeftZig = isLeftZig(x, p);
-		// Gets great grandparent for later updating
-		RBTNode ggp = gp.getParent();
-		// Initialises the sibling of the actual node
-		RBTNode s;
-		// Assignments and rotations if it's a left zigzig
-		if (isLeftZig) {
-			// Get the sibling of the x
-			s = p.getRightChild();
-
-			// Switch p with gp
-			p.setRightChild(gp);
-			p.setParent(ggp); // It's ok if ggp is null
-			gp.setParent(p);
-			gp.setLeftChild(s);
-		}
-		// Assignments and rotations if it's a right zigzig
-		else {
-			// Get the sibling of the x
-			s = p.getLeftChild();
-
-			// Switch p with gp (some overlap with above, but the two extra
-			// lines are included for clarity)
-			p.setLeftChild(gp);
-			p.setParent(ggp);
-			gp.setParent(p);
-			gp.setRightChild(s);
-		}
-		// Only p and gp need to change color in the zigzig rotation
-		p.changeCol();
-		gp.changeCol();
-
-		// Update the root, if needed
-		if (gp == root)
-			root = p;
-		// Otherwise ggp is not null and p must be connected to ggp
-		else {
-			// If the parent is on the left zig from ggp
-			if (ggp.getValue() > p.getValue())
-				ggp.setLeftChild(p);
-			else
-				ggp.setRightChild(p);
-		}
+	private RBTNode findMatch(int value) {
+		if (root == null)
+			return null;
+		RBTNode match = findMatch(root, value);
+		return match;
 	}
 
+	/**
+	 * 
+	 * @param node
+	 *            the node to be examined.
+	 * @param value
+	 *            the value to check for.
+	 * @return the closest match to the value.
+	 */
+	private RBTNode findMatch(RBTNode x, int value) {
+		if( x == null)
+			return null;
+		// Returning a match or calling the method recursively
+		int xValue = x.getValue();
+		if (xValue == value)
+			return x;
+		else if (xValue > value)
+			return x.hasLeftChild() ? findMatch(x.getLeftChild(), value) : x;
+		else
+			return x.hasRightChild() ? findMatch(x.getRightChild(), value) : x;
+	}
+
+	protected void zig(RBTNode child, RBTNode par){
+		if(child == null || par == null)
+			return;
+		if(child == par.getParent())
+			return;
+		
+		/* Fixing relation with granparent*/
+		RBTNode grandpar = par.getParent();
+		child.setParent(grandpar);
+		if(grandpar==null){
+			root = child;
+		}else if(isLeftZig(par, grandpar)){
+			grandpar.setLeftChild(child);
+		}else{
+			grandpar.setRightChild(child);
+		}
+		
+		/* The swap*/
+		RBTNode grandchild;
+		if(isLeftZig(child, par)){
+			grandchild = child.getRightChild();
+			par.setLeftChild(grandchild);
+			child.setRightChild(par);
+		}else{
+			grandchild = child.getLeftChild();
+			par.setRightChild(grandchild);
+			child.setLeftChild(par);
+		}
+		par.setParent(child);
+	}
 	/*
 	 * The zigzag sets the actual node, x, in the position that the grandparent,
 	 * gp, had, and assigns the two children of x (can be null) to p and gp. It
@@ -117,7 +143,7 @@ public class RBTreeManual implements IRBTree {
 	 * 
 	 * Also assumes that gs, p, and x are not null.
 	 */
-	public void zigzag(RBTNode x, RBTNode p, RBTNode gp) {
+	protected void zigzag(RBTNode x, RBTNode p, RBTNode gp) {
 		boolean isLeftZig = isLeftZig(p, gp);
 		// Gets great grandparent for later updating
 		RBTNode ggp = gp.getParent();
@@ -167,71 +193,9 @@ public class RBTreeManual implements IRBTree {
 		}
 	}
 
-	/**
-	 * A method for finding the node that matches the value
-	 * 
-	 * @param value
-	 *            the value to search the tree for
-	 * @return either the node that matches the value or null, if such node can
-	 *         not be found
-	 */
-	public RBTNode find(int value) {
-		if (root == null)
-			return null;
-		return find(root, value);
-	}
-
-	public RBTNode getRoot() {
-		return root;
-	}
-
-	private boolean isLeftZig(RBTNode x, RBTNode p) {
+	private boolean isLeftZig(RBTNode child, RBTNode p) {
 		// If the first zig is right
-		return x.getValue() < p.getValue() ? true : false;
-	}
-
-	private RBTNode find(RBTNode x, int value) {
-		// Returning a match, null or calling the method recursively
-		int xValue = x.getValue();
-		// Return if the node matches the value
-		if (xValue == value)
-			return x;
-		// If the found nodes value is too small, iterate downwards or return
-		// null if
-		// there are no nodes further down the branch
-		else if (xValue > value)
-			return x.hasLeftChild() ? find(x.getLeftChild(), value) : null;
-		// If the found nodes value is too large, iterate downwards or return
-		// null if
-		// there are no nodes further down the branch
-		else
-			return x.hasRightChild() ? find(x.getRightChild(), value) : null;
-	}
-
-	private RBTNode findMatch(int value) {
-		if (root == null)
-			return null;
-		RBTNode match = findMatch(root, value);
-		return match;
-	}
-
-	/**
-	 * 
-	 * @param node
-	 *            the node to be examined.
-	 * @param value
-	 *            the value to check for.
-	 * @return the closest match to the value.
-	 */
-	private RBTNode findMatch(RBTNode x, int value) {
-		// Returning a match or calling the method recursively
-		int xValue = x.getValue();
-		if (xValue == value)
-			return x;
-		else if (xValue > value)
-			return x.hasLeftChild() ? findMatch(x.getLeftChild(), value) : x;
-		else
-			return x.hasRightChild() ? findMatch(x.getRightChild(), value) : x;
+		return p.getLeftChild() == child ? true : false;
 	}
 
 	@Override
@@ -257,14 +221,53 @@ public class RBTreeManual implements IRBTree {
 
 	@Override
 	public void zig(int indexOfChild, int indexOfPar) {
-		// TODO Auto-generated method stub
-		
+		RBTNode child = treeAsArray.get(indexOfChild);
+		RBTNode par = treeAsArray.get(indexOfPar);
+		zig(child,par);
 	}
 
 	@Override
 	public void zigzag(int indexOfChild, int indexOfGrandParent) {
-		// TODO Auto-generated method stub
-		
+		RBTNode child = treeAsArray.get(indexOfChild);
+		RBTNode grandpar = treeAsArray.get(indexOfGrandParent);
+		RBTNode par = child.getParent();
+		zigzag(child, par, grandpar);
 	}
 
+	/***
+	 * ***** FOR THE TEST PROGRAM
+	 */
+	
+	
+	/**
+	 * A method for finding the node that matches the value
+	 * 
+	 * @param value
+	 *            the value to search the tree for
+	 * @return either the node that matches the value or null, if such node can
+	 *         not be found
+	 */
+	protected RBTNode find(int value) {
+		if (root == null)
+			return null;
+		return find(root, value);
+	}
+
+	private RBTNode find(RBTNode x, int value) {
+	// Returning a match, null or calling the method recursively
+	int xValue = x.getValue();
+	// Return if the node matches the value
+	if (xValue == value)
+		return x;
+	// If the found nodes value is too small, iterate downwards or return
+	// null if
+	// there are no nodes further down the branch
+	else if (xValue > value)
+		return x.hasLeftChild() ? find(x.getLeftChild(), value) : null;
+	// If the found nodes value is too large, iterate downwards or return
+	// null if
+	// there are no nodes further down the branch
+	else
+		return x.hasRightChild() ? find(x.getRightChild(), value) : null;
+}
 }

@@ -6,8 +6,8 @@ package redBlackTree;
  * @author Markus
  *
  */
-public class RBTNode {
-	public enum Col {
+class RBTNode {
+	protected enum Col {
 		RED, BLACK;
 		public static Col opposite(Col t) {
 			return t == BLACK ? RED : BLACK;
@@ -18,58 +18,58 @@ public class RBTNode {
 	private RBTNode parent;
 	private RBTNode leftChild;
 	private RBTNode rightChild;
-	public RBTNode(int value) {
+	protected RBTNode(int value) {
 		this(value, null);
 	}
 	
-	public RBTNode(int value, RBTNode parent) {
+	protected RBTNode(int value, RBTNode parent) {
 		// Always initialize as red.
 		this.color = Col.RED;
 		this.value = value;
 	}
 	
-	public void setParent(RBTNode node){
+	protected void setParent(RBTNode node){
 		parent = node;
 	}
 
-	public void setLeftChild(RBTNode node){
+	protected void setLeftChild(RBTNode node){
 		leftChild = node;
 	}
 
-	public void setRightChild(RBTNode node){
+	protected void setRightChild(RBTNode node){
 		rightChild = node;
 	}
-	public RBTNode getParent(){
+	protected RBTNode getParent(){
 		return parent;
 	}
 
-	public RBTNode getLeftChild(){
+	protected RBTNode getLeftChild(){
 		return leftChild;
 	}
 
-	public RBTNode getRightChild(){
+	protected RBTNode getRightChild(){
 		return rightChild;
 	}
 	
-	public int getValue(){
+	protected int getValue(){
 		return value;
 	}
-	public Col getColor(){
+	protected Col getColor(){
 		return color;
 	}
-	public void changeCol() {
+	protected void changeCol() {
 		color = Col.opposite(color);
 	}
 	
-	public boolean isRoot(){
+	protected boolean isRoot(){
 		return parent == null? true : false;
 	}
 	
-	public boolean hasLeftChild(){
+	protected boolean hasLeftChild(){
 		return leftChild == null? false:true;
 	}
 	
-	public boolean hasRightChild(){
+	protected boolean hasRightChild(){
 		return rightChild == null? false:true;
 	}
 }

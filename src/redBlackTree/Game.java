@@ -6,7 +6,7 @@ import java.util.Stack;
 public class Game implements IGame {
 	// Game related
 	private int level;
-	private RBTreeManual tree;
+	private IRBTree tree;
 	private Stack<Integer> valuesToAdd;
 
 	@Override
@@ -16,7 +16,7 @@ public class Game implements IGame {
 	
 	@Override
 	public void newGame(int level) {
-		tree = new RBTreeManual();
+		tree = new RBTree();
 		this.level = level;
 		valuesToAdd = Levels.getLevelList(level);
 	}

@@ -24,13 +24,13 @@ import javax.swing.*;
  * @author Markus
  *
  */
-public class TestingManualProgram {
+class DebuggingClass {
 	static int valOne;
 	static int valTwo;
 	static int valThree;
 
 	public static void main(String[] args) {
-		RBTreeManual tree = new RBTreeManual();
+		RBTree  tree = new RBTree ();
 		Stack<Integer> stack = new Stack<Integer>();
 		stack.push(6);
 		stack.push(5);
@@ -48,7 +48,7 @@ public class TestingManualProgram {
 		while (!stack.isEmpty()) {
 			tree.addNode(stack.pop());
 			System.out.println("Next round! The tree currently looks like: \n");
-			Auxiliary.printLinkedTree(tree);
+			printLinkedTree(tree);
 			while (sc.hasNext()) {
 				command = sc.next();
 				// command = JOptionPane.showInputDialog("Please input a
@@ -75,8 +75,8 @@ public class TestingManualProgram {
 				}
 				// Prompts for three nodes and then changes the tree according
 				// to the zigzig pattern
-				if (command.equalsIgnoreCase("zigzig")) {
-					zigzig(tree);
+				if (command.equalsIgnoreCase("zig")) {
+					zig(tree);
 				}
 				// Prompts for three nodes and then changes the tree according
 				// to the zigzig pattern
@@ -97,7 +97,7 @@ public class TestingManualProgram {
 					break;
 				}
 				System.out.println("The tree currently looks like: \n");
-				Auxiliary.printLinkedTree(tree);
+				printLinkedTree(tree);
 			}
 			if (IsBalanced.isOrdered(tree)) {
 				score++;
@@ -109,7 +109,7 @@ public class TestingManualProgram {
 		sc.close();
 	}
 
-	private static void add(RBTreeManual tree) {
+	private static void add(RBTree  tree) {
 		try {
 			valOne = Integer.parseInt(JOptionPane.showInputDialog("Please input a value to add"));
 			tree.addNode(valOne);
@@ -118,27 +118,25 @@ public class TestingManualProgram {
 		}
 	}
 
-	private static void zigzig(RBTreeManual tree) {
+	private static void zig(RBTree  tree) {
 		try {
 			valOne = Integer.parseInt(JOptionPane.showInputDialog("Please input the value of the child"));
 			valTwo = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the parent"));
-			valThree = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the grandparent"));
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "Something was not an integer", "OBS!", +JOptionPane.ERROR_MESSAGE);
 			return;
 		}
 		RBTNode x = tree.find(valOne);
 		RBTNode p = tree.find(valTwo);
-		RBTNode gp = tree.find(valThree);
-		if (x == null || p == null || gp == null) {
+		if (x == null || p == null) {
 			JOptionPane.showMessageDialog(null, "At least one of the three nodes could not be found", "OBS!",
 					+JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		tree.zigzig(x, p, gp);
+		tree.zig(x, p);
 	}
 
-	private static void zigzag(RBTreeManual tree) {
+	private static void zigzag(RBTree  tree) {
 		try {
 			valOne = Integer.parseInt(JOptionPane.showInputDialog("Please input the value of the child"));
 			valTwo = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the parent"));
@@ -158,7 +156,7 @@ public class TestingManualProgram {
 		tree.zigzag(x, p, gp);
 	}
 
-	private static void recolor(RBTreeManual tree) {
+	private static void recolor(RBTree  tree) {
 //		try {
 //			int val = Integer.parseInt(JOptionPane.showInputDialog("Please input a value of the node"));
 //		} catch (NumberFormatException e) {
@@ -174,5 +172,47 @@ public class TestingManualProgram {
 //		}
 //		tree.recolor(node);
 	}
+	
+	/**
+	 * A method which prints a linked tree using a folder structure with the
+	 * root most to the left.
+	 * 
+	 * @param tree
+	 *            the tree to print.
+	 */
+	private static void printLinkedTree(RBTree tree) {
+		RBTNode root = tree.getRoot();
+		if (root == null)
+			System.out.println("Empty tree");
+		printLinkedTree(root, "");
+	}
 
+	private static void printLinkedTree(RBTNode node, String indent) {
+		// Can be changed to print a string containing '-' at each leaf.
+		if (node == null)
+			return;
+		printLinkedTree(node.getRightChild(), indent + "\t");
+		System.out.println(indent + node.getValue() + " (" + node.getColor().toString() + ")");
+		printLinkedTree(node.getLeftChild(), indent + "\t");
+	}
+	
+	private static void printNode(RBTNode node) {
+		System.out.println("Value of node: " + node.getValue());
+		if (node.getParent() == null) {
+			System.out.println("Parent is null");
+		} else {
+			System.out.println("Value of parent is: " + node.getParent().getValue());
+		}
+		if (node.getLeftChild() == null) {
+			System.out.println("Left child is null");
+		} else {
+			System.out.println("Value of left child: " + node.getLeftChild().getValue());
+		}
+		if (node.getRightChild() == null) {
+			System.out.println("Right child is null");
+		} else {
+			System.out.println("Value of right child: " + node.getRightChild().getValue());
+		}
+		System.out.print("\n");
+	}
 }
