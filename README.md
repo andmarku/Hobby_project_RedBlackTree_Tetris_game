@@ -3,4 +3,4 @@ The back end part of a RedBlackTree-Tetris type of game. The front end part will
 
 About the code
 ===
-When using the code read the IGame interface and use the Game class (which implements the IGame interface).
+When using the code read the IGame interface and instantiate the Game class (which implements the IGame interface).
