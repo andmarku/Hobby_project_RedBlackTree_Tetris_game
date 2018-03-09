@@ -49,7 +49,7 @@ class DebuggingClass {
 			tree.addNode(stack.pop());
 			System.out.println("Next round! The tree currently looks like: \n");
 			printLinkedTree(tree);
-			while (sc.hasNext()) {
+			while (true) {
 				command = sc.next();
 				// command = JOptionPane.showInputDialog("Please input a
 				// command");
