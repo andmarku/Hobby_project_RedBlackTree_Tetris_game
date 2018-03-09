@@ -24,7 +24,7 @@ import javax.swing.*;
  * @author Markus
  *
  */
-class DebuggingClass {
+class DebuggingRBTreeClass {
 	static int valOne;
 	static int valTwo;
 	static int valThree;

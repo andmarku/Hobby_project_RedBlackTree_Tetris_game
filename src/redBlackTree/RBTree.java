@@ -205,6 +205,7 @@ class RBTree implements IRBTree {
 
 	@Override
 	public List<Integer> getTree() {
+		//TODO fix crash
 		treeAsArray = ToArray.convertToList(this);
 		return ToArray.convertToIntegerList(treeAsArray);
 	}

@@ -18,7 +18,6 @@ class ToArray {
 			return ls;
 
 		// Fill the list with lots of null nodes.
-
 		for (int j = 0; j < 100; j++) {
 			ls.add(null);
 		}
@@ -69,12 +68,13 @@ class ToArray {
 	 */
 	protected static List<Integer> convertToIntegerList(List<RBTNode> ls) {
 		List<Integer> intLs = new ArrayList<>();
+		
 		for( RBTNode node : ls){
-			if( node == null)
+			if( node == null){
 				intLs.add(-1);
-			if( node.getColor() == RBTNode.Col.RED)
+			} else if( node.getColor() == RBTNode.Col.RED){
 				intLs.add(1);
-			if( node.getColor() == RBTNode.Col.BLACK)
+			} else if( node.getColor() == RBTNode.Col.BLACK)
 				intLs.add(1);
 		}
 		return intLs;

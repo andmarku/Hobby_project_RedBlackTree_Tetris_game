@@ -6,9 +6,11 @@ import java.util.Stack;
 public class Game implements IGame {
 	// Game related
 	private int level;
-	private IRBTree tree;
+	public IRBTree tree; // TODO remember to set private.
 	private Stack<Integer> valuesToAdd;
-
+	
+	//TODO add constructor and change newGame to something else.
+	
 	@Override
 	public void newGame() {
 		newGame(1);
